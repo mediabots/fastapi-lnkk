@@ -1,0 +1,7 @@
+
+[Pydantic: how to set max string-field length constraint]
+  *https://stackoverflow.com/questions/61326020/how-can-i-set-max-string-field-length-constraint-in-pydantic
+  
+[Sqlalchemy: how to get column-name & type from an existing table]
+  **https://stackoverflow.com/questions/24959589/get-table-columns-from-sqlalchemy-table-model
+  https://stackoverflow.com/questions/38940682/how-can-i-get-column-name-and-type-from-an-existing-table-in-sqlalchemy

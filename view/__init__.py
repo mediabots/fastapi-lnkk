@@ -1,0 +1,1 @@
+from view.posts import Post, Posts, PostsBulk, Ping, PostCBV
