@@ -202,7 +202,7 @@ if __name__ == "__main__":
     '''--workers INTEGER Number of worker processes. Defaults to the $WEB_CONCURRENCY environment variable if available, or 1. Not valid with --reload'''
     #uvicorn app:app --workers 4
     #uvicorn --factory "fastapi-app:create_app" --workers 4 --host "0.0.0.0" --port 8080 --log-level 'warning' --no-access-log
-    #gunicorn "fastapi-app:create_app" --bind 0.0.0.0:8080 --workers 4 --worker-class uvicorn.workers.UvicornWorker --error-logfile guni_error_fastapi.log
+    #gunicorn "app:create_app()" --bind 0.0.0.0:8000 --workers 4 --worker-class uvicorn.workers.UvicornWorker --error-logfile guni_error_fastapi.log
     #
     # python app.py
     # Note: don't forget to set local env variables through below command(for linux)
