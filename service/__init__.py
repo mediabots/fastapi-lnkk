@@ -1,1 +1,1 @@
-from service.retrieve_post import post_retrievation
+from service.retrieve_post import post_retrievation, post_retrievation_prep_stmt

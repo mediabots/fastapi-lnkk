@@ -37,13 +37,14 @@ class PostCBV():
     async def get(request: Request, url_key: str, sql: Optional[str] = None):
         from fastapi.responses import RedirectResponse
         from fastapi import HTTPException
-        from service import post_retrievation
+        from service import post_retrievation, post_retrievation_prep_stmt
         #from app import app
 
-        username = request.headers.get("tenant")
+        #username = request.headers.get("tenant")
         #sql = app.config[f"sql_uow_{username}"]
         #print("invoked", username)
-        code, url = await post_retrievation(username, sql, url_key)
+        #code, url = await post_retrievation(sql, url_key)
+        code, url = await post_retrievation_prep_stmt(sql, url_key)
         if not code:
             return url
             return RedirectResponse(url=url, status_code=status.HTTP_303_SEE_OTHER)
@@ -75,10 +76,10 @@ class Post(MethodView):
         from service import post_retrievation
         #from app import app
 
-        username = request.headers.get("tenant")
+        #username = request.headers.get("tenant")
         #sql = app.config[f"sql_uow_{username}"]
         #print("invoked", username)
-        code, url = await post_retrievation(username, kwargs['sql'], url_key)
+        code, url = await post_retrievation(kwargs['sql'], url_key)
         if not code:
             return url
             return RedirectResponse(url=url, status_code=status.HTTP_303_SEE_OTHER)

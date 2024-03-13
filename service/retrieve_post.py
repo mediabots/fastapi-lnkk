@@ -11,7 +11,29 @@ FORMAT = "%y%m%d%H%M%S%f" # 2 letter year
 CACHE_MOD = dict((_+HOLDER_LENGTH,_) for _ in range(99-HOLDER_LENGTH+1))
 
 
-async def post_retrievation(tenant, sql, url_key):
+async def post_retrievation_prep_stmt(sql, url_key):
+    res = None
+    query_str = text("""
+                     PREPARE get_post_redirect_url(varchar(20)) AS 
+                     SELECT redirect_url 
+                     FROM posts 
+                     WHERE url_key = $1;""")
+    async with sql:
+        async with sql.asession() as sess:
+            await sess.execute(query_str)
+            result = await sess.execute(text(f"EXECUTE get_post_redirect_url('{url_key}')"))
+            res = result.first()    
+    # ------- <OR> Sync way   
+    # with sql:
+    #     with sql.session() as sess:
+    #         sess.execute(query_str)
+    #         result = sess.execute(text(f"EXECUTE get_post_redirect_url('{url_key}')"))
+    #         res = result.first()    
+    if res:
+        return 0, res.redirect_url
+    return 1, res
+
+async def post_retrievation(sql, url_key):
     #pending = asyncio.all_tasks()  
     #print(len(pending))
     res = None

@@ -66,7 +66,7 @@ class SqlUoW(object):
         #asyncio.shield(self.asession.close())
         #psycopg.AsyncConnection.close(self.asession)
 
-from contextlib import contextmanager
+#from contextlib import contextmanager
 
 # @contextmanager
 # def session_scope() -> Session:
