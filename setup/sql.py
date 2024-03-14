@@ -1,6 +1,10 @@
 #import os
-import psycopg
-import asyncpg
+#import psycopg
+#import asyncpg
+#import aiomysql
+#import asyncmy
+#import mysql.connector
+
 #import sqlalchemy
 from sqlalchemy import Table, Column, String, Integer, Text, MetaData, create_engine, func, \
     and_, text, schema

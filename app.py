@@ -182,9 +182,10 @@ def create_app(test_config=None): # create_app is specific for Flask
     MESSAGE_CONFLICT = config['common']['message_conflict']
     MESSAGE_RETRY = config['common']['message_retry']
     URL_KEY_RETRY = config['common'].getint("url_key_retry")
+    ENGINE_NAME = config['common'].get("active_rdbms_engine")
     # ------- initializing RDBMS
     #app = init_sql(app, config, engine_name="postgres")
-    init_sql(app, config, engine_name="postgres")
+    init_sql(app, config, engine_name=ENGINE_NAME)
     # ------ registering Blueprints
     app.register_blueprint(UserBlueprint)
     app.register_blueprint(PostBlueprint)
