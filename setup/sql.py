@@ -1,5 +1,6 @@
 #import os
 import psycopg
+import asyncpg
 #import sqlalchemy
 from sqlalchemy import Table, Column, String, Integer, Text, MetaData, create_engine, func, \
     and_, text, schema
@@ -28,9 +29,15 @@ def init_sql(app, config, engine_name):
         app.config[f'async_sql_session_{tenant}'] = async_sessionmaker(bind=async_engine)
         # ------- fetching data models
         vars()[f"Base{tenant.title()}"] = declarative_base()
-        vars()[f"Base{tenant.title()}"].metadata.reflect(engine)
+        #vars()[f"Base{tenant.title()}"].metadata.reflect(engine)
+        # OR
+        #vars()[f"Base{tenant.title()}"].metadata.bind = engine
+        vars()[f"Base{tenant.title()}"].metadata.bind = async_engine
         vars()[f"meta_{tenant.title()}"] = MetaData() 
-        vars()[f"meta_{tenant.title()}"].reflect(engine)
+        #vars()[f"meta_{tenant.title()}"].reflect(engine)
+        # OR
+        #vars()[f"meta_{tenant.title()}"].bind = engine
+        vars()[f"meta_{tenant.title()}"].bind = async_engine
         app.config[f"Base{tenant.title()}"] = vars()[f"Base{tenant.title()}"]
         app.config[f"meta_{tenant.title()}"] = vars()[f"meta_{tenant.title()}"]
         # ------- configuring sqluow

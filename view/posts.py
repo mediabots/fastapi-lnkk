@@ -43,8 +43,8 @@ class PostCBV():
         #username = request.headers.get("tenant")
         #sql = app.config[f"sql_uow_{username}"]
         #print("invoked", username)
-        #code, url = await post_retrievation(sql, url_key)
-        code, url = await post_retrievation_prep_stmt(sql, url_key)
+        code, url = await post_retrievation(sql, url_key)
+        #code, url = await post_retrievation_prep_stmt(sql, url_key)
         if not code:
             return url
             return RedirectResponse(url=url, status_code=status.HTTP_303_SEE_OTHER)

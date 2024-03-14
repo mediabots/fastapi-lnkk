@@ -10,8 +10,10 @@ HOLDER_LENGTH = len(HOLDER)
 FORMAT = "%y%m%d%H%M%S%f" # 2 letter year
 CACHE_MOD = dict((_+HOLDER_LENGTH,_) for _ in range(99-HOLDER_LENGTH+1))
 
-
 async def post_retrievation_prep_stmt(sql, url_key):
+    """
+    # Note: will work with poolclass=NullPool
+    """
     res = None
     query_str = text("""
                      PREPARE get_post_redirect_url(varchar(20)) AS 
