@@ -23,7 +23,9 @@ def init_sql(app, config, engine_name):
         tenant_settings = SimpleNamespace(**config[tenant])
         args = [_ for _ in dir(tenant_settings) if not _.startswith("_") ]
         for arg in args:
-            sql_connection_pattern_url = sql_connection_pattern_url.replace(arg, eval(f'tenant_settings.{arg}'))
+            if arg.startswith(engine_name):
+                _arg = arg.replace(f"{engine_name}_","")
+                sql_connection_pattern_url = sql_connection_pattern_url.replace(_arg, eval(f'tenant_settings.{arg}'))
         sql_connection_url = sql_connection_pattern_url
         #del sql_connection_pattern_url # @NR
         # ------- establishing sql connection
